@@ -1,0 +1,9 @@
+h1 {
+  text-align: center;
+  color: #1976d2;
+  font-family: Arial, sans-serif;
+}
+.container {
+  max-width: 800px;
+  margin: auto;
+}

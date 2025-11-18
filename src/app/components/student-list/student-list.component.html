@@ -1,0 +1,34 @@
+<div class="container mt-4">
+
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Students List</h2>
+    <a routerLink="/add" class="btn btn-success">Add Student</a>
+  </div>
+
+  <div class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchKeyword">
+    <button class="btn btn-primary" (click)="search()">Search</button>
+    <button class="btn btn-secondary" (click)="resetSearch()">Reset</button>
+  </div>
+
+  <table class="table table-bordered table-striped table-hover text-center">
+    <thead class="table-info">
+      <tr>
+        <th>ID</th><th>Name</th><th>Email</th><th>Phone</th><th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let s of students">
+        <td>{{ s.id }}</td>
+        <td>{{ s.name }}</td>
+        <td>{{ s.email }}</td>
+        <td>{{ s.phone }}</td>
+        <td>
+          <button class="btn btn-warning btn-sm me-2" (click)="edit(s.id)">Edit</button>
+          <button class="btn btn-danger btn-sm" (click)="delete(s.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
