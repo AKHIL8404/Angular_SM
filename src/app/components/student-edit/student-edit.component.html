@@ -7,28 +7,46 @@
     <div class="card-body">
       <form (ngSubmit)="updateStudent()" #form="ngForm">
 
-        <div class="form-group mb-2">
+        <!-- ID (readonly) -->
+        <div class="form-group mb-3">
           <label>ID</label>
           <input type="number" name="id" [(ngModel)]="student.id" readonly class="form-control">
         </div>
 
-        <div class="form-group mb-2">
+        <!-- Name -->
+        <div class="form-group mb-3">
           <label>Name</label>
-          <input type="text" name="name" required [(ngModel)]="student.name" class="form-control">
+          <input type="text" name="name" required [(ngModel)]="student.name" #nameCtrl="ngModel" class="form-control">
+          <small *ngIf="nameCtrl.invalid && (nameCtrl.dirty || form.submitted)" class="text-danger">
+            Name is required.
+          </small>
         </div>
 
-        <div class="form-group mb-2">
+        <!-- Email -->
+        <div class="form-group mb-3">
           <label>Email</label>
-          <input type="email" name="email" required [(ngModel)]="student.email" class="form-control">
+          <input type="email" name="email" required [(ngModel)]="student.email" #emailCtrl="ngModel" class="form-control">
+          <small *ngIf="emailCtrl.invalid && (emailCtrl.dirty || form.submitted)" class="text-danger">
+            <span *ngIf="emailCtrl.errors?.['required']">Email is required.</span>
+            <span *ngIf="emailCtrl.errors?.['email']">Invalid Email format.</span>
+          </small>
         </div>
 
-        <div class="form-group mb-2">
+        <!-- Phone -->
+        <div class="form-group mb-3">
           <label>Phone</label>
-          <input type="text" name="phone" required [(ngModel)]="student.phone" class="form-control">
+          <input type="tel" name="phone" required minlength="10" maxlength="10" [(ngModel)]="student.phone" #phoneCtrl="ngModel" class="form-control">
+          <small *ngIf="phoneCtrl.invalid && (phoneCtrl.dirty || form.submitted)" class="text-danger">
+            <span *ngIf="phoneCtrl.errors?.['required']">Phone is required.</span>
+            <span *ngIf="phoneCtrl.errors?.['minlength'] || phoneCtrl.errors?.['maxlength']">Phone must be 10 digits.</span>
+          </small>
         </div>
 
-        <button class="btn btn-success mt-3" type="submit">Update</button>
-        <button class="btn btn-danger mt-3 ms-2" type="button" (click)="cancel()">Cancel</button>
+        <!-- Buttons centered -->
+        <div class="mt-4 d-flex justify-content-center gap-3">
+          <button type="submit" class="btn btn-success px-4" [disabled]="form.invalid">Update</button>
+          <button type="button" class="btn btn-danger px-4" (click)="cancel()">Cancel</button>
+        </div>
 
       </form>
     </div>
